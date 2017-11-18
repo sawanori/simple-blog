@@ -2,7 +2,7 @@ import React from 'react';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 
-const ArticleItem = ({ sawada }) => (
+const ArticleItem = ({ article }) => (
   <li style={{ borderTop: '1px solid gray', width: 600 }}>
     <h3>{sawada.title}</h3>
     {sawada.cover &&
