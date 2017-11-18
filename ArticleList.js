@@ -4,11 +4,11 @@ import { graphql } from 'react-apollo';
 
 const ArticleItem = ({ article }) => (
   <li style={{ borderTop: '1px solid gray', width: 600 }}>
-    <h3>{sawada.title}</h3>
-    {sawada.cover &&
+    <h3>{article.title}</h3>
+    {article.cover &&
       <div
         style={{
-          background: `url(${sawada.cover.url})`,
+          background: `url(${article.cover.url})`,
           backgroundSize: 'cover',
           backgroundPosition: '50% 50%',
           width: 600,
@@ -17,27 +17,29 @@ const ArticleItem = ({ article }) => (
       />
     }
     <div style={{ textAlign: 'right', color: 'lightgray' }}>
-      {new Date(sawada.date).toDateString()}
+      {new Date(article.date).toDateString()}
     </div>
-    <p>{sawada.content}</p>
+    <p>{article.content}</p>
   </li>
 );
 
-const ArticleList = ({ data: { loading, error, allSawadas } }) => (
+const ArticleList = ({ data: { loading, error, allArticles } }) => (
   loading ? <p>Loading...</p> :
   error ? <p>Error: {error}</p> : (
     <ul style={{ listStyleType: 'none', padding: 0 }}>
-      {allSawadas.map(sawada => <ArticleItem key={sawada.id} article={sawada} />)}
+      {allArticles.map(article => <ArticleItem key={article.id} article={article} />)}
     </ul>
   )
 );
 
 const query = gql`
 {
-  allSawadas{
+  allArticles(orderBy: date_ASC) {
+    id
     title
     date
-    cover{
+    content
+    cover {
       url
     }
   }
