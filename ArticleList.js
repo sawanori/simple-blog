@@ -2,13 +2,13 @@ import React from 'react';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 
-const ArticleItem = ({ article }) => (
+const ArticleItem = ({ sawada }) => (
   <li style={{ borderTop: '1px solid gray', width: 600 }}>
-    <h3>{article.title}</h3>
-    {article.cover &&
+    <h3>{sawada.title}</h3>
+    {sawada.cover &&
       <div
         style={{
-          background: `url(${article.cover.url})`,
+          background: `url(${sawada.cover.url})`,
           backgroundSize: 'cover',
           backgroundPosition: '50% 50%',
           width: 600,
@@ -17,29 +17,27 @@ const ArticleItem = ({ article }) => (
       />
     }
     <div style={{ textAlign: 'right', color: 'lightgray' }}>
-      {new Date(article.date).toDateString()}
+      {new Date(sawada.date).toDateString()}
     </div>
-    <p>{article.content}</p>
+    <p>{sawada.content}</p>
   </li>
 );
 
-const ArticleList = ({ data: { loading, error, allArticles } }) => (
+const ArticleList = ({ data: { loading, error, allSawadas } }) => (
   loading ? <p>Loading...</p> :
   error ? <p>Error: {error}</p> : (
     <ul style={{ listStyleType: 'none', padding: 0 }}>
-      {allArticles.map(article => <ArticleItem key={article.id} article={article} />)}
+      {allSawadas.map(sawada => <ArticleItem key={sawada.id} article={sawada} />)}
     </ul>
   )
 );
 
 const query = gql`
 {
-  allArticles(orderBy: date_ASC) {
-    id
+  allSawadas{
     title
     date
-    content
-    cover {
+    cover{
       url
     }
   }
