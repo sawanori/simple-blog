@@ -34,12 +34,11 @@ const ArticleList = ({ data: { loading, error, allArticles } }) => (
 
 const query = gql`
 {
-  allArticles(orderBy: date_ASC) {
-    id
+  allArticles{
     title
+    text
     date
-    content
-    cover {
+    cover{
       url
     }
   }
